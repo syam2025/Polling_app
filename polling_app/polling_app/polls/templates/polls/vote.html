@@ -69,7 +69,7 @@
 <body>
     <div class="container">
         <h2>{{ poll.question }}</h2>
-        <form method="post">
+        <form id="vote-form" method="post" action="{% url 'home' %}">
             {% csrf_token %}
             <ul>
                 {% for choice in poll.choice_set.all %}
@@ -88,9 +88,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
-            $(".choice-input").on("click", function() {
-                $(".choices").removeClass("show-choices");
-                $(this).siblings(".choice-text").addClass("show-choices");
+            $("#vote-form").submit(function() {
+                // Redirect to the home page after form submission
+                window.location.href = "{% url 'home' %}";
             });
         });
     </script>
