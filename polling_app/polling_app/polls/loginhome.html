@@ -74,16 +74,6 @@
             <br>
             <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
         </div>
-        {% else %}
-           <!-- Initially display login and register buttons -->
-        <div class="header">
-            <h1>Welcome to Polling App!</h1>
-            <p class="lead">Please login or register to view and create polls.</p>
-        </div>
-        <div class="button-group">
-            <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
-            <a href="{% url 'register' %}" class="btn btn-success">Register</a>
-        </div>
         {% endif %}
     </div>
     <!-- Bootstrap JS (Optional) -->

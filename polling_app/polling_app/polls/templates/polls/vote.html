@@ -4,23 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vote</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS */
+        body {
+            background-color: #f8f9fa; /* Light gray background */
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        label {
+            cursor: pointer;
+        }
+
+        .choices {
+            display: none;
+        }
+
+        .show-choices {
+            display: block;
+        }
+
+        button[type="submit"] {
+            margin-top: 20px;
+            background-color: #007bff; /* Blue */
+            color: #fff; /* White text */
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+    </style>
 </head>
 <body>
-    <h2>{{ poll.question }}</h2>
-    <form method="post">
-        {% csrf_token %}
-        <ul>
-            {% for choice in poll.choice_set.all %}
-            <li>
-                <label>
-                    <input type="radio" name="choice" value="{{ choice.id }}">
-                    {{ choice.choice_text }}
-                </label>
-            </li>
-            {% endfor %}
-        </ul>
-        <button type="submit">Vote</button>
-    </form>
+    <div class="container">
+        <h2>{{ poll.question }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            <ul>
+                {% for choice in poll.choice_set.all %}
+                <li>
+                    <label>
+                        <input type="radio" name="choice" value="{{ choice.id }}" class="choice-input">
+                        <span class="choice-text">{{ choice.choice_text }}</span>
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+            <button type="submit">Vote</button>
+        </form>
+    </div>
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".choice-input").on("click", function() {
+                $(".choices").removeClass("show-choices");
+                $(this).siblings(".choice-text").addClass("show-choices");
+            });
+        });
+    </script>
 </body>
 </html>
 
